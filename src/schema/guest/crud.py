@@ -2,12 +2,7 @@ from enum import Enum
 
 from pydantic import IPvAnyAddress, validator
 
-from src.schema.base_crud import (
-    CreateSchemaBase,
-    CRUDSchemaBase,
-    DeleteSchemaBase,
-    UpdateSchemaBase,
-)
+from src.schema.base_crud import CRUDSchemaBase
 
 
 class SlackManager(str, Enum):
@@ -21,7 +16,7 @@ class GuestBase(CRUDSchemaBase):
     pass
 
 
-class CreateGuest(CreateSchemaBase, GuestBase):
+class CreateGuest(GuestBase):
     guest_ip_address: IPvAnyAddress
     guest_device: str
     guest_nickname: str
@@ -63,11 +58,11 @@ class CreateGuest(CreateSchemaBase, GuestBase):
         }
 
 
-class UpdateGuest(UpdateSchemaBase, GuestBase):
+class UpdateGuest(GuestBase):
     pass
 
 
-class DeleteGuest(DeleteSchemaBase, GuestBase):
+class DeleteGuest(GuestBase):
     deleted_by: SlackManager
 
     class Config:

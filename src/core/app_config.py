@@ -20,8 +20,8 @@ class DevelopeSettings(Settings):
         "http://localhost",
         "http://localhost:3000",
         "http://localhost:5500",
-        "https://2022skkfdoc.com/",
-        "https://www.2022skkfdoc.com/",
+        "https://2022skkfdoc.com",
+        "https://www.2022skkfdoc.com",
     ]
     ALLOW_CREDENTIALS: bool = True
     ALLOW_METHODS: list[str] = ["*"]
@@ -30,8 +30,8 @@ class DevelopeSettings(Settings):
 
 class ProductSettings(Settings):
     ALLOW_ORIGINS: list[str] = [
-        "https://2022skkfdoc.com/",
-        "https://www.2022skkfdoc.com/",
+        "https://2022skkfdoc.com",
+        "https://www.2022skkfdoc.com",
     ]
     ALLOW_CREDENTIALS: bool = True
     ALLOW_METHODS: list[str] = ["*"]

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from bson import ObjectId
 from fastapi import Request
 from fastapi.encoders import jsonable_encoder
@@ -18,6 +20,9 @@ class CRUDGuest(CRUDBase[CreateGuest, UpdateGuest]):
 
         if delete_option == "soft":
             delete_data.deleted_by = delete_data.deleted_by.name
+            delete_data.deleted_at = datetime.now(
+                tz=timezone(offset=timedelta(hours=9))
+            )
             deleted_document = await db.find_one_and_update(
                 {"_id": ObjectId(guest_id), "deleted_at": None},
                 {"$set": jsonable_encoder(delete_data)},

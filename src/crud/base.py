@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, timezone
 from typing import Generic, TypeVar
 
 from bson.objectid import ObjectId
@@ -79,6 +80,9 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
     async def create(
         self, request: Request, insert_data: CreateSchema
     ) -> bool:
+        insert_data.created_at = datetime.now(
+            tz=timezone(offset=timedelta(hours=9))
+        )
         inserted_document = await request.app.db[self.collection].insert_one(
             jsonable_encoder(insert_data)
         )
@@ -90,6 +94,9 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
     async def update(
         self, request: Request, id: str, update_data: UpdateSchema
     ) -> bool:
+        update_data.updated_dat = datetime.now(
+            tz=timezone(offset=timedelta(hours=9))
+        )
         update_data = update_data.dict(exclude_none=True)
 
         updated_document = await request.app.db[

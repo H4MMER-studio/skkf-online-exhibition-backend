@@ -23,11 +23,7 @@ router = APIRouter()
 async def get_guests(
     request: Request,
     skip: int = Query(default=0, description="페이지네이션 시작값", example=1),
-    limit: int = Query(
-        default=0,
-        description="페이지네이션 종료값",
-        example=20,
-    ),
+    limit: int = Query(default=0, description="페이지네이션 종료값", example=20),
 ) -> JSONResponse:
     """
     방명록 다량 조회(GET) 엔드포인트
@@ -41,11 +37,11 @@ async def get_guests(
             request=request,
             skip=skip,
             limit=limit,
-            # projection={
-            #     "created_at": True,
-            #     "guest_nickname": True,
-            #     "guest_content": True,
-            # },
+            projection={
+                "created_at": True,
+                "guest_nickname": True,
+                "guest_content": True,
+            },
         ):
             return JSONResponse(
                 content={"data": result["data"], "size": result["data_size"]},
