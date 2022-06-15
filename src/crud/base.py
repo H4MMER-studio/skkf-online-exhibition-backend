@@ -70,6 +70,9 @@ class CRUDBase(Generic[CreateSchema, UpdateSchema]):
             await query.skip(skip).limit(limit - skip).to_list(length=None)
         )
 
+        if not documents:
+            return None
+
         for document in documents:
             document["_id"] = str(document["_id"])
 
