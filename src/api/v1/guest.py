@@ -33,7 +33,7 @@ async def get_guests(
     2. limit
     """
     try:
-        if result := await guest_crud.get_multi(
+        result = await guest_crud.get_multi(
             request=request,
             skip=skip,
             limit=limit,
@@ -42,7 +42,8 @@ async def get_guests(
                 "guest_nickname": True,
                 "guest_content": True,
             },
-        ):
+        )
+        if result["data"]:
             return JSONResponse(
                 content={"data": result["data"], "size": result["data_size"]},
                 status_code=status.HTTP_200_OK,
